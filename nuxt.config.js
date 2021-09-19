@@ -26,7 +26,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     {src: '~/plugins/infinite-loading.js', ssr: false},
-    {src: '~/plugins/dateformat.js', ssr: false},
+    '~/plugins/dateformat.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -82,6 +82,10 @@ export default {
         }
       }
     }
+  },
+
+  publicRuntimeConfig: {
+    baseUrl: process.env.NODE_ENV === "production" ? "https://tavern.chikach.net" : "http://localhost:3000"
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

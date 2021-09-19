@@ -10,7 +10,7 @@ export const getters = ({
 
 export const actions = ({
   async getEntries({getters, commit}) {
-    let url = "//localhost:3000/api/entries"
+    let url = this.$config.baseUrl + "/api/entries"
     if (getters.lastId) url += "?offset=" + getters.lastId
     const data = await this.$axios.$get(url)
 
