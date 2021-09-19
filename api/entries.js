@@ -26,7 +26,11 @@ module.exports = async (req, res) => {
       url: "https://www.hoyolab.com/article/" + e.post.post_id,
       userName: e.user.nickname,
       avatar: e.user.avatar_url,
-      createdAt: e.post.reply_time
+      createdAt: e.post.reply_time,
+      viewNum: e.stat.view_num,
+      replyNum: e.stat.reply_num,
+      likeNum: e.stat.like_num,
+      bookmarkNum: e.stat.bookmark_num,
     }
   })
 

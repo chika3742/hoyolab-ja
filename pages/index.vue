@@ -2,7 +2,7 @@
   <div>
     <v-col align="center">
       <ItemCard v-for="(item, i) in $store.getters.entries" :key="i" :entry="item" class="my-8" />
-      <infinite-loading ref="infiniteLoading" @infinite="loadMore" />
+      <infinite-loading ref="infiniteLoading" spinner="spiral" @infinite="loadMore" />
     </v-col>
   </div>
 </template>

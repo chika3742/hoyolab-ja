@@ -15,7 +15,7 @@
       :absolute="false"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }} chikach / powered by HoYoLAB / <a href="https://github.com/" target="_blank">Source code</a></span>
+      <span>&copy; {{ new Date().getFullYear() }} chikach / powered by HoYoLAB / <a href="https://github.com/chika3742/hoyolab-ja" target="_blank">Source code</a></span>
     </v-footer>
   </v-app>
 </template>

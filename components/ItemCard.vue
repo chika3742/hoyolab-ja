@@ -9,8 +9,19 @@
     </v-row>
     <v-card-title class="pt-2">{{$props.entry.title}}</v-card-title>
     <v-card-text class="cn-content">{{$props.entry.content}}</v-card-text>
-    <v-row class="ma-2">
+    <v-row class="ma-0 pa-2">
       <v-img v-for="img in $props.entry.images" :key="img" max-width="27%" class="ma-2 cn-img" aspect-ratio="1" :src="img"/>
+    </v-row>
+    <v-row class="ma-0 pa-4">
+      <v-spacer/>
+      <v-icon class="mr-2">mdi-eye</v-icon>
+      <span class="mr-6">{{$props.entry.viewNum}}</span>
+      <v-icon class="mr-2">mdi-message-reply</v-icon>
+      <span class="mr-6">{{$props.entry.replyNum}}</span>
+      <v-icon class="mr-2">mdi-star</v-icon>
+      <span class="mr-6">{{$props.entry.bookmarkNum}}</span>
+      <v-icon class="mr-2">mdi-thumb-up</v-icon>
+      <span>{{$props.entry.likeNum}}</span>
     </v-row>
   </v-card>
 </template>
