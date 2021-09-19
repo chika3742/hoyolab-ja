@@ -6,17 +6,18 @@ module.exports = async (req, res) => {
 
   switch (req.query.view) {
     case "trend":
-      url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=${pageSize}&type=1`
+      url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=${pageSize}&type=1&offset=0`
       break;
-    case `new`:
+    case "new":
       url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list/new?page_size=${pageSize}&type=1`
       break;
     default:
-      url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=${pageSize}&type=1`
+      url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=${pageSize}&type=1&offset=0`
       break;
   }
 
-  if (req.query.offset) url += "&offset=" + req.query.offset
+  if (req.query.offset && req.query.view == "new") url += "&offset=" + req.query.offset
+  if (req.query.reload_times) url += "&reload_times=" + req.query.reload_times
   const result = await axios.get(url, {
     headers: {
       'x-rpc-language': 'ja-jp',

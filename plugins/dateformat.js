@@ -2,7 +2,7 @@ export default (_, inject) => {
   inject('formatDate', (date, format) => {
     date.setHours(date.getHours() + 1)
     format = format.replace(/yyyy/g, date.getFullYear())
-    format = format.replace(/MM/g, ("0" + (date.getMonth() + 1)).slice(-2))
+    format = format.replace(/MM/g, ("0" + (date.getMonth())).slice(-2))
     format = format.replace(/dd/g, ("0" + date.getDate()).slice(-2))
     format = format.replace(/HH/g, ("0" + date.getHours()).slice(-2))
     format = format.replace(/mm/g, ("0" + date.getMinutes()).slice(-2))

@@ -37,6 +37,8 @@ export default Vue.extend({
     const size = this.$store.getters.entries.length + 10
     
     while (this.$store.getters.entries.length <= size) {
+      console.log(this.$store.getters.lastId);
+      
       await this.$store.dispatch('getEntries', this.view)
       await sleep(300)
     }
