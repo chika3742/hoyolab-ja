@@ -2,16 +2,17 @@ const axios = require('axios').default
 
 module.exports = async (req, res) => {
   let url
+  const pageSize = 50
 
   switch (req.query.view) {
     case "trend":
-      url = "https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=50&type=1"
+      url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=${pageSize}&type=1`
       break;
-    case "new":
-      url = "https://api-os-takumi.mihoyo.com/community/post/wapi/post/list/new?page_size=50&type=1"
+    case `new`:
+      url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list/new?page_size=${pageSize}&type=1`
       break;
     default:
-      url = "https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=50&type=1"
+      url = `https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=${pageSize}&type=1`
       break;
   }
 
@@ -23,7 +24,9 @@ module.exports = async (req, res) => {
     }
   })
 
+  
   const data = result.data
+  console.log(data);
   const articleList = data.data.list
   const lastId = data.data.last_id
 
