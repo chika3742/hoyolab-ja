@@ -9,9 +9,9 @@ export const getters = ({
 })
 
 export const actions = ({
-  async getEntries({getters, commit}) {
-    let url = this.$config.baseUrl + "/api/entries"
-    if (getters.lastId) url += "?offset=" + getters.lastId
+  async getEntries({getters, commit}, view) {
+    let url = this.$config.baseUrl + "/api/entries?view=" + view
+    if (getters.lastId) url += "&offset=" + getters.lastId
     const data = await this.$axios.$get(url)
 
     commit('setLastId', data.last_id)
@@ -25,5 +25,9 @@ export const mutations = ({
   },
   setLastId(store, value) {
     store.lastId = value
+  },
+  clearEntries(store) {
+    store.entries = []
+    store.lastId = undefined
   }
 })

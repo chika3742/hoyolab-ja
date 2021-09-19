@@ -1,7 +1,20 @@
 const axios = require('axios').default
 
 module.exports = async (req, res) => {
-  let url = "https://api-os-takumi.mihoyo.com/community/post/wapi/post/list/new?page_size=50&type=1"
+  let url
+
+  switch (req.query.view) {
+    case "trend":
+      url = "https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=50&type=1"
+      break;
+    case "new":
+      url = "https://api-os-takumi.mihoyo.com/community/post/wapi/post/list/new?page_size=50&type=1"
+      break;
+    default:
+      url = "https://api-os-takumi.mihoyo.com/community/post/wapi/post/list?page_size=50&type=1"
+      break;
+  }
+
   if (req.query.offset) url += "&offset=" + req.query.offset
   const result = await axios.get(url, {
     headers: {
@@ -26,7 +39,7 @@ module.exports = async (req, res) => {
       url: "https://www.hoyolab.com/article/" + e.post.post_id,
       userName: e.user.nickname,
       avatar: e.user.avatar_url,
-      createdAt: e.post.reply_time,
+      createdAt: e.post.created_at * 1000,
       viewNum: e.stat.view_num,
       replyNum: e.stat.reply_num,
       likeNum: e.stat.like_num,
