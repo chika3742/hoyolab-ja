@@ -6,8 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - hoyolab-ja',
-    title: 'hoyolab-ja',
+    title: 'HoYoLAB 記事一覧',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
