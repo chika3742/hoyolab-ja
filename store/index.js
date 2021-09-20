@@ -1,26 +1,20 @@
 export const state = () => ({
   entries: [],
   lastId: undefined,
-  reloadTimes: 0,
-  view: "trend",
+  reloadTimes: 0
 })
 
 export const getters = ({
   entries: (store) => store.entries,
   lastId: (store) => store.lastId,
-  reloadTimes: (store) => store.reloadTimes,
-  view: (store) => store.view,
+  reloadTimes: (store) => store.reloadTimes
 })
 
 export const actions = ({
-  nuxtServerInit({commit}, {route}) {
-    commit("setView", route.query.view ?? "trend")
-  },
   async getEntries({getters, commit}, view) {
     let url = this.$config.baseUrl + "/api/entries?view=" + view
-    if (view == "new" && getters.lastId) url += "&offset=" + getters.lastId
+    if (getters.lastId) url += "&offset=" + getters.lastId
     if (view != "new") url += "&reload_times=" + getters.reloadTimes
-    console.log(url);
     const data = await this.$axios.$get(url)
 
     commit('setLastId', data.last_id)
@@ -35,9 +29,6 @@ export const mutations = ({
   },
   setLastId(store, value) {
     store.lastId = value
-  },
-  setView(store, value) {
-    store.view = value
   },
   incrementReload(store) {
     store.reloadTimes++

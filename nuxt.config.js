@@ -28,12 +28,6 @@ export default {
     '~/plugins/dateformat.js'
   ],
 
-  loading: {
-    color: "#ff8c00",
-    height: "3px",
-    duration: "2000"
-  },
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
