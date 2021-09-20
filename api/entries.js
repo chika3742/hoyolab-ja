@@ -2,7 +2,7 @@ const axios = require('axios').default
 
 module.exports = async (req, res) => {
   let url
-  const pageSize = 50
+  const pageSize = req.query.view == "new" ? 50 : 15
 
   switch (req.query.view) {
     case "trend":

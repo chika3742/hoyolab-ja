@@ -1,46 +1,39 @@
 <template>
   <div>
-    <v-menu offset-y>
-        <template #activator="{on, attrs}">
-          <v-btn class="ma-4" v-bind="attrs" v-on="on"><v-icon>mdi-sort-variant</v-icon>表示</v-btn>
-        </template>
-        <v-list>
-          <v-list-item-group v-model="view">
-            <v-list-item value="trend">
-              <v-list-item-title>トレンド</v-list-item-title>
-            </v-list-item>
-            <v-list-item value="new">
-              <v-list-item-title>最新の投稿</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-menu>
-    <v-col align="center">
+    <v-col v-if="!error" align="center">
       <v-progress-circular v-if="$store.getters.entries.length == 0" indeterminate />
       <ItemCard v-for="(item, i) in $store.getters.entries" :key="i" :entry="item" class="my-8" />
       <!-- <infinite-loading ref="infiniteLoading" spinner="spiral" @infinite="loadMore" /> -->
       <v-btn v-if="$store.getters.entries.length != 0" :loading="loading" @click="loadMore">さらに読み込む</v-btn>
     </v-col>
+    <p v-else>{{error}}</p>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+
+interface Main {
+  loading: boolean
+  error: string | undefined
+}
+
 export default Vue.extend({
-  data() {
+  data(): Main {
     return {
-      view: this.$route.query.view ? this.$route.query.view : "trend",
-      loading: false
+      loading: false,
+      error: undefined
     }
   },
   async fetch() {
     const size = this.$store.getters.entries.length + 10
+
+    let count = 0
     
-    while (this.$store.getters.entries.length <= size) {
-      console.log(this.$store.getters.lastId);
-      
-      await this.$store.dispatch('getEntries', this.view)
+    while (this.$store.getters.entries.length <= size && count < 0) {
+      await this.$store.dispatch('getEntries', this.$store.getters.view)
       await sleep(300)
+      count++
     }
 
     // if (this.$store.getters.entries.length == 0) this.error = "読み込みに失敗しました。"
@@ -48,12 +41,12 @@ export default Vue.extend({
     this.loading = false
     // (this as any).$refs?.infiniteLoading.stateChanger.loaded()
   },
-  watch: {
-    view(to) {
+  created() {
+    this.$nuxt.$on("changeView", (to: string) => {
       this.$store.commit("clearEntries")
+      this.$router.push("?view=" + to)
       this.$fetch()
-      this.$router.push("/?view=" + to)
-    }
+    })
   },
   methods: {
     loadMore() {
