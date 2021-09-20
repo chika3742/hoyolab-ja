@@ -17,7 +17,7 @@ export const actions = ({
     commit("setView", route.query.view ?? "trend")
   },
   async getEntries({getters, commit}, view) {
-    let url = this.$config.baseUrl + "/api/entries?view=" + view
+    let url = this.$config.baseUrl + "/hoyolabEntries?view=" + view
     if (view == "new" && getters.lastId) url += "&offset=" + getters.lastId
     if (view != "new") url += "&reload_times=" + getters.reloadTimes
     console.log(url);

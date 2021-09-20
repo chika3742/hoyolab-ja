@@ -30,13 +30,13 @@ export default Vue.extend({
 
     let count = 0
     
-    while (this.$store.getters.entries.length <= size && count < 0) {
+    while (this.$store.getters.entries.length <= size && count < 5) {
       await this.$store.dispatch('getEntries', this.$store.getters.view)
       await sleep(300)
       count++
     }
 
-    // if (this.$store.getters.entries.length == 0) this.error = "読み込みに失敗しました。"
+    if (this.$store.getters.entries.length == 0) this.error = "読み込みに失敗しました。"
     
     this.loading = false
     // (this as any).$refs?.infiniteLoading.stateChanger.loaded()

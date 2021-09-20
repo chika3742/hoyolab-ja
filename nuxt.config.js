@@ -90,7 +90,7 @@ export default {
   },
 
   publicRuntimeConfig: {
-    baseUrl: process.env.NODE_ENV === "production" ? "https://tavern.chikach.net" : "http://localhost:3000"
+    baseUrl: process.env.NODE_ENV === "production" ? "https://asia-northeast1-mydatauploader.cloudfunctions.net" : "http://localhost:3001/mydatauploader/asia-northeast1"
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
