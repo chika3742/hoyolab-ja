@@ -2,14 +2,14 @@ export const state = () => ({
   entries: [],
   lastId: undefined,
   reloadTimes: 0,
-  view: "trend",
+  view: "trend"
 })
 
 export const getters = ({
   entries: (store) => store.entries,
   lastId: (store) => store.lastId,
   reloadTimes: (store) => store.reloadTimes,
-  view: (store) => store.view,
+  view: (store) => store.view
 })
 
 export const actions = ({

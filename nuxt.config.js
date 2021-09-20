@@ -28,11 +28,7 @@ export default {
     '~/plugins/dateformat.js'
   ],
 
-  loading: {
-    color: "#ff8c00",
-    height: "3px",
-    duration: "2000"
-  },
+  loading: false,
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -43,6 +39,8 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+
+    '@nuxtjs/google-fonts'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -86,6 +84,12 @@ export default {
           success: colors.green.accent3
         }
       }
+    }
+  },
+
+  googleFonts: {
+    families: {
+      'Noto+Sans+JP': [400, 700]
     }
   },
 

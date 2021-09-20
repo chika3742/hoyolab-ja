@@ -25,32 +25,31 @@ export default Vue.extend({
       error: undefined
     }
   },
-  async fetch() {
-    const size = this.$store.getters.entries.length + 10
-
-    let count = 0
-    
-    while (this.$store.getters.entries.length <= size && count < 5) {
-      await this.$store.dispatch('getEntries', this.$store.getters.view)
-      await sleep(300)
-      count++
-    }
-
-    if (this.$store.getters.entries.length == 0) this.error = "読み込みに失敗しました。"
-    
-    this.loading = false
-    // (this as any).$refs?.infiniteLoading.stateChanger.loaded()
+  mounted() {
+    this.fetchEntries()
   },
   created() {
     this.$nuxt.$on("changeView", (to: string) => {
       this.$store.commit("clearEntries")
       this.$router.push("?view=" + to)
-      this.$fetch()
+      this.fetchEntries()
     })
   },
   methods: {
+    async fetchEntries() {
+      const size = this.$store.getters.entries.length + 10
+      let count = 0
+      while (this.$store.getters.entries.length <= size && count < 5) {
+        await this.$store.dispatch('getEntries', this.$store.getters.view)
+        await sleep(300)
+        count++
+      }
+
+      if (this.$store.getters.entries.length == 0) this.error = "読み込みに失敗しました。"
+      this.loading = false
+    },
     loadMore() {
-      this.$fetch()
+      this.fetchEntries()
       this.loading = true
     }
   }
@@ -64,3 +63,9 @@ async function sleep(duration:number) {
   })
 }
 </script>
+
+<style>
+.v-application {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+</style>
