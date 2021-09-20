@@ -38,7 +38,7 @@ export default Vue.extend({
   },
   methods: {
     open() {
-      window.open(this.$props.entry.url, '_blank')
+      window.open(this.$props.entry.url, 'hoyolab')
     }
   }
 })
