@@ -56,13 +56,13 @@ export default Vue.extend({
   border: #ddd 2px solid
 }
 .cn-title {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 .cn-date {
   font-size: 0.9rem;
   font-weight: bold;
 }
 .cn-time {
-  font-weight: bold !important;
+  font-weight: bold;
 }
 </style>
