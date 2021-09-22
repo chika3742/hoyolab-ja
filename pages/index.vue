@@ -1,10 +1,8 @@
 <template>
   <div>
     <v-col v-if="!error" align="center">
-      <v-progress-circular v-if="$store.getters.entries.length == 0" indeterminate />
       <ItemCard v-for="(item, i) in $store.getters.entries" :key="i" :entry="item" class="my-8" />
-      <!-- <infinite-loading ref="infiniteLoading" spinner="spiral" @infinite="loadMore" /> -->
-      <v-btn v-if="$store.getters.entries.length != 0" :loading="loading" @click="loadMore">さらに読み込む</v-btn>
+      <v-btn v-if="$store.getters.entries.length != 0" :disabled="loading" @click="loadMore">さらに読み込む</v-btn>
     </v-col>
     <p v-else>{{error}}</p>
   </div>
@@ -29,24 +27,26 @@ export default Vue.extend({
     this.fetchEntries()
   },
   created() {
-    this.$nuxt.$on("changeView", (to: string) => {
+    this.$nuxt.$on("changeView", () => {
       this.$store.commit("clearEntries")
-      this.$router.push("?view=" + to)
+      this.$router.push("/?view=" + this.$store.getters.view)
       this.fetchEntries()
     })
   },
   methods: {
     async fetchEntries() {
+      this.$nuxt.$emit('setLoading', true)
       const size = this.$store.getters.entries.length + 10
       let count = 0
       while (this.$store.getters.entries.length <= size && count < 5) {
-        await this.$store.dispatch('getEntries', this.$store.getters.view)
+        await this.$store.dispatch('getEntries')
         await sleep(300)
         count++
       }
 
       if (this.$store.getters.entries.length == 0) this.error = "読み込みに失敗しました。"
       this.loading = false
+      this.$nuxt.$emit('setLoading', false)
     },
     loadMore() {
       this.fetchEntries()

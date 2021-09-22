@@ -8,7 +8,7 @@
       <v-spacer/>
       <v-menu offset-y>
         <template #activator="{on, attrs}">
-          <v-btn v-bind="attrs" text v-on="on"><v-icon>mdi-sort-variant</v-icon>表示</v-btn>
+          <v-btn v-bind="attrs" text :disabled="loading" v-on="on"><v-icon>mdi-sort-variant</v-icon>表示</v-btn>
         </template>
         <v-list>
           <v-list-item-group v-model="view" mandatory>
@@ -21,6 +21,7 @@
           </v-list-item-group>
         </v-list>
       </v-menu>
+      <v-btn class="mr-0" :loading="loading" icon @click="refresh"><v-icon>mdi-refresh</v-icon></v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -34,7 +35,7 @@
       :absolute="false"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }} chikach / powered by <a href="https://www.hoyolab.com" target="_blank">HoYoLAB</a> / <a href="https://github.com/chika3742/hoyolab-ja" target="_blank">Source code</a></span>
+      <span>powered by <a href="https://www.hoyolab.com" target="_blank">HoYoLAB</a> | <a href="https://github.com/chika3742/hoyolab-ja" target="_blank">本サイトについて</a></span>
     </v-footer>
   </v-app>
 </template>
@@ -45,8 +46,9 @@ import {scrollTo} from 'scroll-js'
 export default {
   data () {
     return {
-      title: 'HoYoLAB記事リスト(非公式)',
-      hideUp: true
+      title: 'HoYoLAB 酒場記事リスト',
+      hideUp: true,
+      loading: true,
     }
   },
   computed: {
@@ -56,9 +58,14 @@ export default {
       },
       set(value) {
         this.$store.commit("setView", value)
-        this.$nuxt?.$emit('changeView', value)
+        this.$nuxt?.$emit('changeView')
       },
     },
+  },
+  created() {
+    this.$nuxt.$on('setLoading', (value) => {
+      this.loading = value
+    })
   },
   mounted() {
     window.onscroll = () => {
@@ -69,6 +76,9 @@ export default {
   methods: {
     scrollUp() {
       scrollTo(window, {top: 0, easing: 'ease-in-out'})
+    },
+    refresh() {
+      this.$nuxt?.$emit('changeView')
     }
   }
 }
@@ -81,6 +91,9 @@ export default {
 .cn-top-btn {
   position: fixed;
   right: 16px;
-  bottom: 64px;
+  bottom: 32px;
+}
+a {
+  color: #438bfe !important
 }
 </style>

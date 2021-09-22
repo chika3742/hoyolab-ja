@@ -9,17 +9,17 @@ export const getters = ({
   entries: (store) => store.entries,
   lastId: (store) => store.lastId,
   reloadTimes: (store) => store.reloadTimes,
-  view: (store) => store.view
+  view: (store) => store.view,
 })
 
 export const actions = ({
   nuxtServerInit({commit}, {route}) {
     commit("setView", route.query.view ?? "trend")
   },
-  async getEntries({getters, commit}, view) {
-    let url = this.$config.baseUrl + "/hoyolabEntries?view=" + view
-    if (view == "new" && getters.lastId) url += "&offset=" + getters.lastId
-    if (view != "new") url += "&reload_times=" + getters.reloadTimes
+  async getEntries({getters, commit}) {
+    let url = this.$config.baseUrl + "/hoyolabEntries?view=" + getters.view
+    if (getters.view == "new" && getters.lastId) url += "&offset=" + getters.lastId
+    if (getters.view != "new") url += "&reload_times=" + getters.reloadTimes
     console.log(url);
     const data = await this.$axios.$get(url)
 

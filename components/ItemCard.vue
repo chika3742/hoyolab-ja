@@ -1,9 +1,9 @@
 <template>
   <v-card width="600" align="left" @click="open">
     <v-row class="ma-0 pa-2 pb-0 cn-info">
-      <img :src="$props.entry.avatar" class="ma-2 cn-avatar" width="50px" height="50px" aspect-ratio="1" />
+      <img :src="$props.entry.avatar" class="ma-2 cn-avatar" width="50px" height="50px" aspect-ratio="1" @click.stop="openUserPage" />
       <div class="pa-0">
-        <p class="ma-0">{{$props.entry.userName}}</p>
+        <p class="ma-0" @click.stop="openUserPage">{{$props.entry.userName}}</p>
         <p class="ma-0"><span class="cn-date">{{$formatDate(new Date($props.entry.createdAt), "yyyy/MM/dd")}}</span> <span class="cn-time">{{$formatDate(new Date($props.entry.createdAt), "HH:mm")}}</span></p>
       </div>
     </v-row>
@@ -39,6 +39,9 @@ export default Vue.extend({
   methods: {
     open() {
       window.open(this.$props.entry.url, '_blank')
+    },
+    openUserPage() {
+      window.open(this.$props.entry.userUrl, '_blank')
     }
   }
 })
