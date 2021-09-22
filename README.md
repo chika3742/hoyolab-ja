@@ -18,6 +18,10 @@ miHoYoが提供するAPIより、記事一覧を取得し、リストアップ�
 
 ホスティングにはVercelを利用しています。APIサーバーにはFirebase Cloud Functionsを利用しています。HoYoLABに酒場が復活し次第、当ページ及びAPIの公開を停止します。 
 
+### 更新履歴
+
+[コミット](https://github.com/chika3742/hoyolab-ja/commits/master)を参照してください。
+
 ### その他
 
 「HoYoLAB」はmiHoYo Co., Ltd.の商標です。
