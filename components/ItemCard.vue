@@ -63,6 +63,6 @@ export default Vue.extend({
   font-weight: bold;
 }
 .cn-time {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 </style>
